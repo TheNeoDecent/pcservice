@@ -3,69 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PC SERVICE — Monitoring App</title>
+    <title>PC SERVICE — Ultimate PC Monitoring</title>
     <link rel="icon" type="image/x-icon" href="pcservice.ico">
     <style>
         :root {
-            --bg-color: #0b0f19;
-            --card-bg: rgba(255, 255, 255, 0.03);
+            --bg-glow: radial-gradient(circle at 50% -20%, #1e293b, #0f172a, #020617);
+            --card-bg: rgba(30, 41, 59, 0.4);
             --card-border: rgba(255, 255, 255, 0.08);
-            --accent-color: #3b82f6;
-            --accent-hover: #2563eb;
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --warning-bg: rgba(245, 158, 11, 0.1);
-            --warning-border: rgba(245, 158, 11, 0.2);
-            --warning-text: #f59e0b;
+            --accent-glow: 0 0 25px rgba(59, 130, 246, 0.4);
+            --accent: #3b82f6;
+            --accent-hover: #60a5fa;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
         }
 
         body {
-            background-color: var(--bg-color);
+            background: var(--bg-glow);
             color: var(--text-main);
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
-            padding: 20px;
-            overflow-x: hidden;
+            padding: 40px 20px;
         }
 
         .container {
             width: 100%;
-            max-width: 650px;
+            max-width: 700px;
             display: flex;
             flex-direction: column;
             gap: 24px;
         }
 
+        /* Шапка и Переключатель языка */
+        .nav-bar {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: -10px;
+        }
+
+        .lang-switch {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--card-border);
+            padding: 4px;
+            border-radius: 12px;
+            display: flex;
+            gap: 4px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: var(--accent-glow);
+        }
+
         header {
             text-align: center;
-            margin-bottom: 10px;
+            padding: 20px 0;
         }
 
         .app-icon {
-            width: 80px;
-            height: 80px;
+            width: 96px;
+            height: 96px;
             object-fit: contain;
-            border-radius: 16px;
-            margin-bottom: 16px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-radius: 22px;
+            margin-bottom: 20px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 30px rgba(59, 130, 246, 0.2);
+            transition: transform 0.3s ease;
+        }
+
+        .app-icon:hover {
+            transform: scale(1.05);
         }
 
         h1 {
-            font-size: 2.5rem;
+            font-size: 2.8rem;
             font-weight: 800;
             letter-spacing: -0.05em;
-            margin-bottom: 8px;
-            background: linear-gradient(to right, #ffffff, #9ca3af);
+            margin-bottom: 12px;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -73,25 +108,30 @@
         .subtitle {
             color: var(--text-muted);
             font-size: 1.1rem;
-            line-height: 1.5;
+            line-height: 1.6;
         }
 
+        /* Стили карточек */
         .card {
             background: var(--card-bg);
             border: 1px solid var(--card-border);
-            border-radius: 20px;
-            padding: 24px;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            padding: 28px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: border 0.3s ease;
+        }
+
+        .card:hover {
+            border-color: rgba(59, 130, 246, 0.3);
         }
 
         h2 {
-            font-size: 1.25rem;
+            font-size: 1.4rem;
             font-weight: 600;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
+            margin-bottom: 16px;
+            letter-spacing: -0.02em;
         }
 
         p {
@@ -100,73 +140,103 @@
             line-height: 1.6;
         }
 
+        /* Сетка фич */
+        .features-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .feature-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            padding: 16px;
+            border-radius: 16px;
+        }
+
+        .feature-item h3 {
+            font-size: 1rem;
+            margin-bottom: 6px;
+            color: #fff;
+        }
+
+        /* Кнопка скачивания и требования */
         .version-badge {
-            background: rgba(59, 130, 246, 0.15);
-            color: var(--accent-color);
-            padding: 4px 10px;
+            background: rgba(59, 130, 246, 0.1);
+            border: 1px solid rgba(59, 130, 246, 0.2);
+            color: #60a5fa;
+            padding: 6px 12px;
             border-radius: 99px;
             font-size: 0.85rem;
             font-weight: 600;
             display: inline-block;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
 
         .btn-download {
             display: flex;
             align-items: center;
             justify-content: center;
-            background-color: var(--accent-color);
+            background: var(--accent);
             color: #ffffff;
             text-decoration: none;
-            padding: 16px;
-            border-radius: 14px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            transition: background 0.2s ease, transform 0.1s ease;
+            padding: 18px;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 1.15rem;
+            transition: all 0.2s ease;
             text-align: center;
-            margin-top: 16px;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+            box-shadow: var(--accent-glow);
         }
 
         .btn-download:hover {
-            background-color: var(--accent-hover);
+            background: var(--accent-hover);
+            box-shadow: 0 0 35px rgba(59, 130, 246, 0.6);
+            transform: translateY(-2px);
         }
 
         .btn-download:active {
-            transform: scale(0.98);
+            transform: translateY(0);
         }
 
         .sys-requirements {
-            margin-top: 14px;
-            font-size: 0.85rem;
+            margin: 20px 0 10px 0;
+            padding-top: 16px;
+            border-top: 1px solid var(--card-border);
+            font-size: 0.9rem;
             color: var(--text-muted);
-            text-align: center;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         .steps-list {
-            margin-top: 12px;
+            margin-top: 20px;
             padding-left: 20px;
             color: var(--text-muted);
         }
 
         .steps-list li {
-            margin-bottom: 8px;
-            line-height: 1.5;
+            margin-bottom: 10px;
+            line-height: 1.6;
         }
 
+        /* Предупреждение / FAQ */
         .warning-card {
-            background: var(--warning-bg);
-            border: 1px solid var(--warning-border);
-            border-radius: 16px;
-            padding: 20px;
+            background: rgba(245, 158, 11, 0.06);
+            border: 1px solid rgba(245, 158, 11, 0.15);
+            border-radius: 20px;
+            padding: 24px;
         }
 
         .warning-card h2 {
-            color: var(--warning-text);
+            color: #fbbf24;
         }
 
         .warning-card p {
-            color: #fcd34d;
+            color: #fef08a;
             font-size: 0.95rem;
         }
 
@@ -174,7 +244,13 @@
             text-align: center;
             margin-top: 20px;
             font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.2);
+            color: rgba(255, 255, 255, 0.15);
+        }
+
+        @media (max-width: 500px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -182,41 +258,123 @@
 
     <div class="container">
         
+        <!-- Выбор языка -->
+        <div class="nav-bar">
+            <div class="lang-switch">
+                <button class="lang-btn active" onclick="setLanguage('en')">EN</button>
+                <button class="lang-btn" onclick="setLanguage('ru')">RU</button>
+            </div>
+        </div>
+
         <header>
             <img src="pcservice.ico" alt="PC SERVICE Icon" class="app-icon">
             <h1>PC SERVICE</h1>
-            <p class="subtitle">This program is created to monitor your PC. Check the news and releases, and subscribe to us.</p>
+            <p class="subtitle" id="app-desc">This program is created to monitor your PC. Check the news and releases, and subscribe to us.</p>
         </header>
 
+        <!-- Блок фич (Дополнительная информация) -->
         <section class="card">
-            <h2>Release Information</h2>
-            <span class="version-badge">Current Version: 1.0</span>
-            <p>Check news about this app to download new versions with new functions and options.</p>
+            <h2 id="title-features">Core Capabilities</h2>
+            <div class="features-grid">
+                <div class="feature-item">
+                    <h3 id="f1-title">Hardware Monitor</h3>
+                    <p id="f1-desc" style="font-size: 0.85rem;">Real-time tracking of system resources, load levels, and performance metrics.</p>
+                </div>
+                <div class="feature-item">
+                    <h3 id="f2-title">News & Updates</h3>
+                    <p id="f2-desc" style="font-size: 0.85rem;">Stay informed about new releases, features, and optimizations instantly.</p>
+                </div>
+            </div>
         </section>
 
+        <!-- Блок релиза -->
         <section class="card">
-            <h2>Download & Installation</h2>
-            <a href="pcservicesetup.exe" class="btn-download" download>Download pcservicesetup.exe</a>
+            <h2 id="title-release">Release</h2>
+            <span class="version-badge" id="app-version">Current Version: 1.0</span>
+            <p id="release-desc">Check news about this app to download new versions, with new functions and options.</p>
+        </section>
+
+        <!-- Блок скачивания -->
+        <section class="card">
+            <h2 id="title-download">Download & Setup</h2>
+            <a href="pcservicesetup.exe" class="btn-download" id="btn-text" download>Download pcservicesetup.exe</a>
+            
             <div class="sys-requirements">
-                <strong>OS:</strong> Windows 11 / 10 / 8 / 7 (10/11 recommended) &bull; <strong>Space:</strong> 580 MB
+                <div><strong>OS:</strong> Windows 11 / 10 / 8 / 7</div>
+                <div><strong>Recommend:</strong> Windows 10 / 11</div>
+                <div><strong>Disk:</strong> 580 MB</div>
             </div>
             
             <ol class="steps-list">
-                <li>Download the <strong>pcservicesetup.exe</strong> file using the button above.</li>
-                <li>Open the downloaded file and complete the installation process.</li>
+                <li id="step-1">Download the <strong>pcservicesetup.exe</strong> file using the main button above.</li>
+                <li id="step-2">Open the <strong>pcservicesetup.exe</strong> file, and follow the setup instructions to install it.</li>
             </ol>
         </section>
 
+        <!-- Блок ложных срабатываний -->
         <section class="warning-card">
-            <h2>Important Note</h2>
-            <p>If your browser or system flags the file saying <em>"This file has a virus"</em> when you install or open the main app <strong>pcservice</strong>, please ignore it and proceed with the execution.</p>
+            <h2 id="title-other">Other Information</h2>
+            <p id="warning-text">If your browser or operating system says <em>"This File Have A Virus"</em> when you download or open the main app <strong>pcservice</strong>, please ignore it. This is a false positive error — just skip it and proceed.</p>
         </section>
 
         <footer>
-            &copy; 2026 PC SERVICE. All rights reserved.
+            &copy; 2026 PC SERVICE.
         </footer>
 
     </div>
 
+    <!-- Скрипт переключения языков -->
+    <script>
+        const translations = {
+            en: {
+                "app-desc": "This program is created to monitor your PC. Check the news and releases, and subscribe to us.",
+                "title-features": "Core Capabilities",
+                "f1-title": "Hardware Monitor",
+                "f1-desc": "Real-time tracking of system resources, load levels, and performance metrics.",
+                "f2-title": "News & Updates",
+                "f2-desc": "Stay informed about new releases, features, and optimizations instantly.",
+                "title-release": "Release Details",
+                "app-version": "Current Version: 1.0",
+                "release-desc": "Check news about this app to download new versions, with new functions and options.",
+                "title-download": "Download & Setup",
+                "btn-text": "Download pcservicesetup.exe",
+                "step-1": "Download the <strong>pcservicesetup.exe</strong> file using the main button above.",
+                "step-2": "Open the <strong>pcservicesetup.exe</strong> file, and follow the setup instructions to install it.",
+                "title-other": "Other Information",
+                "warning-text": "If your browser or operating system says <em>\"This File Have A Virus\"</em> when you download or open the main app <strong>pcservice</strong>, please ignore it. This is a false positive error — just skip it and proceed."
+            },
+            ru: {
+                "app-desc": "Эта программа создана для мониторинга вашего ПК. Следите за новостями, релизами и подписывайтесь на нас.",
+                "title-features": "Основные возможности",
+                "f1-title": "Мониторинг железа",
+                "f1-desc": "Отслеживание системных ресурсов, уровня нагрузки и производительности в реальном времени.",
+                "f2-title": "Новости и обновления",
+                "f2-desc": "Мгновенно узнавайте о новых версиях, функциях и исправлениях приложения.",
+                "title-release": "Информация о релизе",
+                "app-version": "Текущая версия: 1.0",
+                "release-desc": "Следите за новостями приложения, чтобы скачивать новые версии с расширенным функционалом.",
+                "title-download": "Скачивание и установка",
+                "btn-text": "Скачать pcservicesetup.exe",
+                "step-1": "Скачайте файл <strong>pcservicesetup.exe</strong>, нажав на кнопку выше.",
+                "step-2": "Откройте файл <strong>pcservicesetup.exe</strong> и выполните установку программы.",
+                "title-other": "Дополнительная информация",
+                "warning-text": "Если ваш браузер или система выдают предупреждение <em>\"Этот файл содержит вирус\"</em> при скачивании или запуске основного приложения <strong>pcservice</strong>, просто проигнорируйте это. Это ложное срабатывание защиты — пропустите его."
+            }
+        };
+
+        function setLanguage(lang) {
+            // Меняем текст элементов
+            for (let id in translations[lang]) {
+                document.getElementById(id).innerHTML = translations[lang][id];
+            }
+
+            // Переключаем активный класс на кнопках
+            const buttons = document.querySelectorAll('.lang-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            const activeBtn = event ? event.target : Array.from(buttons).find(b => b.textContent.toLowerCase() === lang);
+            if (activeBtn) activeBtn.classList.add('active');
+        }
+    </script>
 </body>
 </html>
