@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PC SERVICE — Monitoring App</title>
+    <link rel="icon" type="image/x-icon" href="pcservice.ico">
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --card-border: rgba(255, 255, 255, 0.08);
+            --accent-color: #3b82f6;
+            --accent-hover: #2563eb;
+            --text-main: #f3f4f6;
+            --text-muted: #9ca3af;
+            --warning-bg: rgba(245, 158, 11, 0.1);
+            --warning-border: rgba(245, 158, 11, 0.2);
+            --warning-text: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .app-icon {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+            border-radius: 16px;
+            margin-bottom: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            letter-spacing: -0.05em;
+            margin-bottom: 8px;
+            background: linear-gradient(to right, #ffffff, #9ca3af);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            line-height: 1.5;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            padding: 24px;
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        h2 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        p {
+            color: var(--text-muted);
+            font-size: 1rem;
+            line-height: 1.6;
+        }
+
+        .version-badge {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--accent-color);
+            padding: 4px 10px;
+            border-radius: 99px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .btn-download {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--accent-color);
+            color: #ffffff;
+            text-decoration: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: background 0.2s ease, transform 0.1s ease;
+            text-align: center;
+            margin-top: 16px;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-download:hover {
+            background-color: var(--accent-hover);
+        }
+
+        .btn-download:active {
+            transform: scale(0.98);
+        }
+
+        .sys-requirements {
+            margin-top: 14px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .steps-list {
+            margin-top: 12px;
+            padding-left: 20px;
+            color: var(--text-muted);
+        }
+
+        .steps-list li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+
+        .warning-card {
+            background: var(--warning-bg);
+            border: 1px solid var(--warning-border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .warning-card h2 {
+            color: var(--warning-text);
+        }
+
+        .warning-card p {
+            color: #fcd34d;
+            font-size: 0.95rem;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        
+        <header>
+            <img src="pcservice.ico" alt="PC SERVICE Icon" class="app-icon">
+            <h1>PC SERVICE</h1>
+            <p class="subtitle">This program is created to monitor your PC. Check the news and releases, and subscribe to us.</p>
+        </header>
+
+        <section class="card">
+            <h2>Release Information</h2>
+            <span class="version-badge">Current Version: 1.0</span>
+            <p>Check news about this app to download new versions with new functions and options.</p>
+        </section>
+
+        <section class="card">
+            <h2>Download & Installation</h2>
+            <a href="pcservicesetup.exe" class="btn-download" download>Download pcservicesetup.exe</a>
+            <div class="sys-requirements">
+                <strong>OS:</strong> Windows 11 / 10 / 8 / 7 (10/11 recommended) &bull; <strong>Space:</strong> 580 MB
+            </div>
+            
+            <ol class="steps-list">
+                <li>Download the <strong>pcservicesetup.exe</strong> file using the button above.</li>
+                <li>Open the downloaded file and complete the installation process.</li>
+            </ol>
+        </section>
+
+        <section class="warning-card">
+            <h2>Important Note</h2>
+            <p>If your browser or system flags the file saying <em>"This file has a virus"</em> when you install or open the main app <strong>pcservice</strong>, please ignore it and proceed with the execution.</p>
+        </section>
+
+        <footer>
+            &copy; 2026 PC SERVICE. All rights reserved.
+        </footer>
+
+    </div>
+
+</body>
+</html>
